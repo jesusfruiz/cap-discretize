@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
-#define N 10
+#define N 10000
 #define SUB14 0
 #define SUB24 1
 #define SUB64 2
@@ -38,20 +39,19 @@ void discretize_values(int ages[], int groups[]) {
 int main() {
     int ages[N];
     int groups[4];
+    clock_t start, end;
+    float seconds;
 
     init_groups(groups);
     init_ages_array(ages);
+    
+    start = clock();
     discretize_values(ages, groups);
-
-    for(int i=0; i<N; i++) {
-        printf("%d ", ages[i]);
-    }
-    printf("\n");
+    seconds = (float)(clock() - start) / CLOCKS_PER_SEC;
 
     printf("There are %d sub 14\n", groups[SUB14]);
     printf("There are %d sub 24\n", groups[SUB24]);
     printf("There are %d sub 64\n", groups[SUB64]);
     printf("There are %d old\n", groups[OLD]);
-
-
+    printf("The sequential algorithm took %f", seconds);
 }
