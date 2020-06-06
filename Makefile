@@ -8,6 +8,12 @@ compile_omp:
 compile_mpi:
 	mpicc discretizo_mpi.c -o discretizo_mpi
 
+exec_seq: compile_seq
+	./discretizo
+
+exec_omp: compile_omp
+	./discretizo_omp
+
 exec_mpi: compile_mpi
 	mpirun -np 4 discretizo_mpi
 
